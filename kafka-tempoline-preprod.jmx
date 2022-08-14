@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="kafka-tempoline-preprod" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="script_glob_vars" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="HOST" elementType="Argument">
+            <stringProp name="Argument.name">HOST</stringProp>
+            <stringProp name="Argument.value">${__P(HOST,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TOPIC" elementType="Argument">
+            <stringProp name="Argument.name">TOPIC</stringProp>
+            <stringProp name="Argument.value">${__P(TOPIC,T.NAMERCURY.ITEM.UPDATE.ANY.V1)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc"> T.NAMERCURY.ITEM.UPDATE.ANY.V1</stringProp>
+          </elementProp>
+          <elementProp name="THREADS" elementType="Argument">
+            <stringProp name="Argument.name">THREADS</stringProp>
+            <stringProp name="Argument.value">${__P(THREADS,125)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="REPEAT" elementType="Argument">
+            <stringProp name="Argument.name">REPEAT</stringProp>
+            <stringProp name="Argument.value">${__P(REPEAT,33)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="TAR_RATE" elementType="Argument">
+            <stringProp name="Argument.name">TAR_RATE</stringProp>
+            <stringProp name="Argument.value">${__P(TAR_RATE,125)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">transactions</stringProp>
+          </elementProp>
+          <elementProp name="COMMON" elementType="Argument">
+            <stringProp name="Argument.name">COMMON</stringProp>
+            <stringProp name="Argument.value">${__P(COMMON,testOne)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">transactions</stringProp>
+          </elementProp>
+          <elementProp name="STEPS" elementType="Argument">
+            <stringProp name="Argument.name">STEPS</stringProp>
+            <stringProp name="Argument.value">${__P(STEPS,10)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="RAMP_UP" elementType="Argument">
+            <stringProp name="Argument.name">RAMP_UP</stringProp>
+            <stringProp name="Argument.value">${__P(RAMP_UP,3600)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="DURTN" elementType="Argument">
+            <stringProp name="Argument.name">DURTN</stringProp>
+            <stringProp name="Argument.value">${__P(DURTN,8)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="VAULT_HOST" elementType="Argument">
+            <stringProp name="Argument.name">VAULT_HOST</stringProp>
+            <stringProp name="Argument.value">${__P(VAULT_HOST,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="VAULT_URI" elementType="Argument">
+            <stringProp name="Argument.name">VAULT_URI</stringProp>
+            <stringProp name="Argument.value">${__P(VAULT_URI,)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="VAULT_TOKEN" elementType="Argument">
+            <stringProp name="Argument.name">VAULT_TOKEN</stringProp>
+            <stringProp name="Argument.value">${__P(VAULT_TOKEN,)</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="metrics_vars" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="custom_duration" elementType="Argument">
+            <stringProp name="Argument.name">custom_duration</stringProp>
+            <stringProp name="Argument.value">${__P(custom_duration,${__TestPlanName})}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="projectName" elementType="Argument">
+            <stringProp name="Argument.name">projectName</stringProp>
+            <stringProp name="Argument.value">TEMPO</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="influx_host" elementType="Argument">
+            <stringProp name="Argument.name">influx_host</stringProp>
+            <stringProp name="Argument.value"></stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp name="testName" elementType="Argument">
+            <stringProp name="Argument.name">testName</stringProp>
+            <stringProp name="Argument.value">${__P(namePrefix,tempoline)}_${__time(dd-MM-yyyy&apos;T&apos;HH-mm-ss)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="setUp PreProd" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </SetupThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler" enabled="false">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">/*
+ * Libs for that script
+ * Put in ext: 
+ * bcprov-jdk18on-1.71.jar
+ * bctls-jdk18on-1.71.jar
+ * bcutil-jdk18on-1.71.jar
+ * kafka-clients-2.8.1.jar
+ * 
+ * Put in lib:
+ * kafka-clients-2.8.1.jar
+ * kafka-streams-2.8.0.jar
+ * 
+ */</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+        <SystemSampler guiclass="SystemSamplerGui" testclass="SystemSampler" testname="OS Process Sampler" enabled="false">
+          <boolProp name="SystemSampler.checkReturnCode">false</boolProp>
+          <stringProp name="SystemSampler.expectedReturnCode">0</stringProp>
+          <stringProp name="SystemSampler.command">sed</stringProp>
+          <elementProp name="SystemSampler.arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">-i</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">s/AD\S*/\*\*\*/g</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Argument">
+                <stringProp name="Argument.name"></stringProp>
+                <stringProp name="Argument.value">.jmeter.log</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <elementProp name="SystemSampler.environment" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="SystemSampler.directory"></stringProp>
+        </SystemSampler>
+        <hashTree/>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Once Only Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="write-start-in-influx" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">events,application=${__P(projectName,${projectName})},title=${__P(testName,${testName})} text=&quot;${__groovy(def startTime = new Date(Long.valueOf(props.get(&apos;TESTSTART.MS&apos;))); def Tag1 =  startTime.format(&apos;dd-MM-yy_HH:mm&apos;).toString() + &apos; &apos; + &apos;${__P(TimeDurationTest,${custom_duration})}&apos;.toString(); return Tag1;)}&quot; ${__groovy(return (new Date().getTime()).toString() + &quot;000000&quot;)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${influx_host}</stringProp>
+            <stringProp name="HTTPSampler.port">8086</stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/write?db=LT_GATE_WAY</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="certs-and-consumer" enabled="true"/>
+        <hashTree>
+          <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="get certs" enabled="true">
+            <stringProp name="TestPlan.comments">poluchaem certs iz vault kladem v props i rabotaem s nimi</stringProp>
+          </OnceOnlyController>
+          <hashTree>
+            <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+              <collectionProp name="HeaderManager.headers">
+                <elementProp name="" elementType="Header">
+                  <stringProp name="Header.name">X-Vault-Token</stringProp>
+                  <stringProp name="Header.value">${VAULT_TOKEN}</stringProp>
+                </elementProp>
+              </collectionProp>
+            </HeaderManager>
+            <hashTree/>
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/v1/pki/issue/ml-kafka" enabled="true">
+              <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+              <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                <collectionProp name="Arguments.arguments">
+                  <elementProp name="" elementType="HTTPArgument">
+                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                    <stringProp name="Argument.value">{&#xd;
+  &quot;common_name&quot;: &quot;${COMMON}&quot;,&#xd;
+  &quot;format&quot;: &quot;pem&quot;&#xd;
+}</stringProp>
+                    <stringProp name="Argument.metadata">=</stringProp>
+                  </elementProp>
+                </collectionProp>
+              </elementProp>
+              <stringProp name="HTTPSampler.domain">${VAULT_HOST}</stringProp>
+              <stringProp name="HTTPSampler.port"></stringProp>
+              <stringProp name="HTTPSampler.protocol">https</stringProp>
+              <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+              <stringProp name="HTTPSampler.path">${VAULT_URI}</stringProp>
+              <stringProp name="HTTPSampler.method">POST</stringProp>
+              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+              <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+              <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+              <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+              <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+              <stringProp name="HTTPSampler.response_timeout"></stringProp>
+            </HTTPSamplerProxy>
+            <hashTree>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="script">import groovy.json.JsonSlurper;
+
+def JsonSlurper = new JsonSlurper();
+def resp = JsonSlurper.parseText(prev.getResponseDataAsString())
+//def private_key = resp.get(&quot;private_key&quot;)
+def private_key = resp.data.private_key
+def certificate = resp.data.certificate
+def issuing_ca = resp.data.issuing_ca
+//log.info(&quot;private_key: &quot; + private_key);
+props.put(&quot;P_KEY&quot;, private_key) as String
+props.put(&quot;CERT&quot;, certificate) as String
+props.put(&quot;I_CA&quot;, issuing_ca) as String</stringProp>
+                <stringProp name="scriptLanguage">groovy</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+            </hashTree>
+          </hashTree>
+          <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="consumer" enabled="false">
+            <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="cacheKey">true</stringProp>
+            <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.*;
+import org.apache.kafka.common.config.SslConfigs.*;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.serialization.ByteArrayDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.config.AbstractConfig;
+import java.security.Security;
+import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
+import java.util.Properties;
+import groovy.util.logging.Log4j;
+import groovy.json.JsonSlurper;
+import org.apache.jmeter.threads.JMeterContext;
+import java.util.Collections;
+import java.util.Properties;
+import java.io.File;
+import java.text.SimpleDateFormat ;
+import java.util.Date;
+
+//
+//String kafka_topic_consumer = &quot;LOAD.TESTING&quot;
+//String KAFKA_USER = &quot;userPlaceholder&quot;;
+//String KAFKA_PASSWORD = &quot;passPlaceholder&quot;;
+//String group_id_var = &quot;jmeter&quot;
+//String certificatesTrustStorePath = &quot;D:/jdk-11/lib/security/cacerts&quot;;
+
+String private_key = props.get(&quot;P_KEY&quot;) //приватный ключ из vault
+String certificate = props.get(&quot;CERT&quot;) //сертификат из vault
+String issuing_ca = props.get(&quot;I_CA&quot;) //юзинг из vault
+String common = vars.get(&quot;COMMON&quot;) //коммон нейм, можно задавать через ключ -JCOMMON=&lt;что-то&gt; при старте
+String kafka_topic = vars.get(&quot;TOPIC&quot;) //topic
+def kafka_port = 9093
+String kafka_url = &quot;kafka-preprod-1:${kafka_port}, kafka-preprod-2:${kafka_port}, kafka-preprod-3:${kafka_port}&quot;
+
+Properties props = new Properties();
+Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, &quot;SSL&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_KEY_CONFIG, private_key);
+props.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, &quot;PEM&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_TYPE_CONFIG, &quot;PEM&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_CERTIFICATE_CHAIN_CONFIG, certificate);
+props.put(SslConfigs.SSL_TRUSTSTORE_CERTIFICATES_CONFIG, issuing_ca);
+
+
+props.put(ConsumerConfig.GROUP_ID_CONFIG, common);
+props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka_url);
+props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
+props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ByteArrayDeserializer.class);
+//props.put(ConsumerConfig.CLIENT_ID_CONFIG, &quot;jmeter&quot;);
+//props.put(ConsumerConfig.KEY_SERIALIZER_CLASS_CONFIG, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);
+//props.put(ConsumerConfig.VALUE_SERIALIZER_CLASS_CONFIG, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);
+
+KafkaConsumer&lt;String,String&gt; consumer = new KafkaConsumer&lt;String,String&gt;(props);
+consumer.subscribe(Collections.singleton(kafka_topic));
+//ConsumerRecords&lt;String,String&gt; records = consumer.poll(100);
+
+try{
+  while (true){
+      records = consumer.poll(100);
+      for (ConsumerRecord&lt;String, String&gt; record : records) {
+      log.info(&quot;!!! topic = %s, partition = %s, offset = %d, customer = %s, country = %s\n&quot; + record.topic() + &quot; &quot; + record.partition() + &quot; &quot; + record.offset()  + &quot; &quot; + record.key()  + &quot; &quot; + record.value()); 
+      }
+  }
+} finally {
+  consumer.close();
+  consumer.flush();
+}
+</stringProp>
+          </JSR223Sampler>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <com.blazemeter.jmeter.threads.arrivals.ArrivalsThreadGroup guiclass="com.blazemeter.jmeter.threads.arrivals.ArrivalsThreadGroupGui" testclass="com.blazemeter.jmeter.threads.arrivals.ArrivalsThreadGroup" testname="ATG_MULTI_PREPROD" enabled="true">
+        <elementProp name="ThreadGroup.main_controller" elementType="com.blazemeter.jmeter.control.VirtualUserController"/>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="TargetLevel">1</stringProp>
+        <stringProp name="RampUp">1</stringProp>
+        <stringProp name="Steps">1</stringProp>
+        <stringProp name="Hold">1</stringProp>
+        <stringProp name="LogFilename"></stringProp>
+        <stringProp name="Iterations"></stringProp>
+        <stringProp name="Unit">S</stringProp>
+        <stringProp name="ConcurrencyLimit">2000</stringProp>
+      </com.blazemeter.jmeter.threads.arrivals.ArrivalsThreadGroup>
+      <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="producer_multi_mes" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.*;
+import org.apache.kafka.common.config.SslConfigs.*;
+import org.apache.kafka.common.header.*;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.serialization.ByteArrayDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.apache.kafka.common.config.AbstractConfig;
+import java.security.Security;
+import org.bouncycastle.jsse.provider.BouncyCastleJsseProvider;
+import java.util.Properties;
+import groovy.util.logging.Log4j;
+import groovy.json.JsonSlurper;
+import org.apache.jmeter.threads.JMeterContext;
+import java.util.Collections;
+import java.util.Properties;
+import java.io.File;
+import java.text.SimpleDateFormat ;
+import java.util.Date;
+import java.nio.charset.Charset;
+import org.apache.kafka.common.header.Header;
+import org.apache.kafka.common.header.internals.RecordHeader;
+
+String private_key = props.get(&quot;P_KEY&quot;) //приватный ключ из vault
+String certificate = props.get(&quot;CERT&quot;) //сертификат из vault
+String issuing_ca = props.get(&quot;I_CA&quot;) //юзинг из vault
+String common = vars.get(&quot;COMMON&quot;) //коммон нейм, можно задавать через ключ -JCOMMON=&lt;что-то&gt; при старте
+String kafka_topic = vars.get(&quot;TOPIC&quot;) //topic
+def kafka_port = 9093
+String kafka_url = &quot;kafka-preprod-1:${kafka_port}, kafka-preprod-2:${kafka_port}, kafka-preprod-3:${kafka_port}&quot;
+//log.info(&quot;===== private_key: &quot; + private_key);
+//log.info(&quot;===== certificate: &quot; + certificate);
+//log.info(&quot;===== issuing_ca: &quot; + issuing_ca);
+//log.info(&quot;===== common: &quot; + common);
+Random rand = new Random()
+
+Properties props = new Properties();
+Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, &quot;SSL&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_KEY_CONFIG, private_key);
+props.put(SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG, &quot;PEM&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_TYPE_CONFIG, &quot;PEM&quot;);
+props.put(SslConfigs.SSL_KEYSTORE_CERTIFICATE_CHAIN_CONFIG, certificate);
+props.put(SslConfigs.SSL_TRUSTSTORE_CERTIFICATES_CONFIG, issuing_ca);
+
+//props.put(ProducerConfig.CLIENT_ID_CONFIG, common);
+props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafka_url);
+props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);
+props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, &quot;org.apache.kafka.common.serialization.StringSerializer&quot;);
+//props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+//props.put(ProducerConfig.ACKS_CONFIG, acks);
+//props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, compressionType);
+//props.put(ProducerConfig.RETRIES_CONFIG, retries);
+//props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, retryBackoff);
+
+
+Producer&lt;String, String&gt; producer = new KafkaProducer&lt;String, String&gt;(props);
+List&lt;Header&gt; headers = new ArrayList&lt;&gt;();
+
+//если хотим кидать за одну итерацию больше сообщений	
+
+for (int i = 0; i &lt;= ${__groovy(return ${REPEAT}.toString() as Integer)} ; i++) {
+def key = &quot;&quot;&quot;nt-key-${__time(HHmmssZ)}&quot;&quot;&quot; as String
+def itm = rand.nextInt((8999999 - 1000000) + 1) + 1000000
+def msq_po = &quot;&quot;&quot;{&quot;ITEMNO&quot;:&quot;${itm}&quot;,&quot;SITEID&quot;:&quot;POSITRONICA.RU&quot;,&quot;BUSPRODUCTID&quot;:&quot;&quot;,&quot;CRMPRODUCTID&quot;:&quot;&quot;,&quot;BUSSECTIONID&quot;:&quot;&quot;,&quot;CRMSECTIONID&quot;:&quot;&quot;,&quot;BODY&quot;:{&quot;NAME&quot;:&quot;Мышь A4Tech Fstyler FB10C зеленый (fb10c matcha green NT)&quot;,&quot;GROUPCODE&quot;:&quot;PS020406&quot;,&quot;EAN&quot;:&quot;&quot;,&quot;CODE&quot;:&quot;www.positronica.ru/a4tech-fb10c-${itm}&quot;}}&quot;&quot;&quot; as String
+
+ProducerRecord&lt;String, String&gt; record = new ProducerRecord&lt;String, String&gt;(&quot;${kafka_topic}&quot;, key, msq_po);
+record.headers().add(new RecordHeader(&quot;createdatutc&quot;,&quot;${__time(yyyy-MM-dd&apos;T&apos;hh:mm:ssZ)}&quot;.getBytes()));
+record.headers().add(new RecordHeader(&quot;createdby&quot;,&quot;SRV_NAV&quot;.getBytes()));
+record.headers().add(new RecordHeader(&quot;aggregatetype&quot;,&quot;40&quot;.getBytes()));
+producer.send(record);
+}
+
+producer.close();
+producer.flush();
+
+
+	</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <PostThreadGroup guiclass="PostThreadGroupGui" testclass="PostThreadGroup" testname="tearDown Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </PostThreadGroup>
+      <hashTree>
+        <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="Once Only Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="write-stop-in-influx" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">events,application=${__P(projectName,${project_name})},title=${__P(test_name,${test_name})} text=&quot;${__groovy(def EndTime = new Date(); def Tag1 = &apos;${__dateTimeConvert(${__P(TESTSTART.MS)},,dd-MM-yy_HH:mm,)}&apos; + &apos; &apos; + &apos;${__P(TimeDurationTest,${custom_duration})}&apos;.toString() + &apos; &apos; + EndTime.getTime().toString().take(10) + &apos;s&apos;; return Tag1;)}&quot; ${__groovy(startTest = new Date(); Tag = startTest.getTime() + &apos;000000&apos;; return Tag;)}&#xd;
+</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${influx_host}</stringProp>
+            <stringProp name="HTTPSampler.port">8086</stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/write?db=LT_GATE_WAY</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="true">
+        <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="influxdbMetricsSender" elementType="Argument">
+              <stringProp name="Argument.name">influxdbMetricsSender</stringProp>
+              <stringProp name="Argument.value">org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="influxdbUrl" elementType="Argument">
+              <stringProp name="Argument.name">influxdbUrl</stringProp>
+              <stringProp name="Argument.value">http://${influx_host}:8086/write?db=LT_GATE_WAY</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="application" elementType="Argument">
+              <stringProp name="Argument.name">application</stringProp>
+              <stringProp name="Argument.value">${__P(projectName,${projectName})}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="measurement" elementType="Argument">
+              <stringProp name="Argument.name">measurement</stringProp>
+              <stringProp name="Argument.value">jmeter</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="summaryOnly" elementType="Argument">
+              <stringProp name="Argument.name">summaryOnly</stringProp>
+              <stringProp name="Argument.value">false</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="samplersRegex" elementType="Argument">
+              <stringProp name="Argument.name">samplersRegex</stringProp>
+              <stringProp name="Argument.value">.*</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="percentiles" elementType="Argument">
+              <stringProp name="Argument.name">percentiles</stringProp>
+              <stringProp name="Argument.value">90;95;99</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="testTitle" elementType="Argument">
+              <stringProp name="Argument.name">testTitle</stringProp>
+              <stringProp name="Argument.value">${__P(testName,${testName})}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="eventTags" elementType="Argument">
+              <stringProp name="Argument.name">eventTags</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="TAG_testRun" elementType="Argument">
+              <stringProp name="Argument.name">TAG_testRun</stringProp>
+              <stringProp name="Argument.value">${__groovy(def startTime = new Date(Long.valueOf(props.get(&apos;TESTSTART.MS&apos;))); def Tag1 =  startTime.format(&apos;dd-MM-yy_HH:mm&apos;).toString() + &apos; &apos; + &apos;${__P(TimeDurationTest,${custom_duration})}&apos;.toString(); return Tag1;)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </elementProp>
+        <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
+      </BackendListener>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
